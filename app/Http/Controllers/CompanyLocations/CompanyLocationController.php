@@ -11,8 +11,7 @@ class CompanyLocationController extends Controller
 {
     public function __construct(
         private CompanyLocationService $companyLocationService
-    ) {
-    }
+    ) {}
 
     /**
      * Create company location.

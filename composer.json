@@ -17,6 +17,7 @@
         "laravel/socialite": "^5.31",
         "laravel/telescope": "^5.23",
         "laravel/tinker": "^3.0",
+        "maatwebsite/excel": "^4.0",
         "scalar/laravel": "^0.4.0",
         "spatie/laravel-permission": "^8.3",
         "tymon/jwt-auth": "^2.3"

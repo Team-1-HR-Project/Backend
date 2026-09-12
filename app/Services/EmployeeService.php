@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Mail\EmployeeInvitationMail;
+use App\Models\CompanyLocation;
 use App\Models\Department;
 use App\Models\Employee;
 use App\Models\User;
@@ -36,6 +37,8 @@ class EmployeeService
                 $managerId = $department?->manager_id;
             }
 
+            $locationId = $data['company_location_id'] ?? CompanyLocation::where('is_active', true)->value('id');
+
             $user->employee()->create([
                 'employee_id' => $this->generateUniqueEmployeeId(),
                 'job_title' => $data['job_title'],
@@ -46,6 +49,7 @@ class EmployeeService
                 'phone' => $data['phone'] ?? null,
                 'address' => $data['address'] ?? null,
                 'status' => 'inactive',
+                'company_location_id' => $locationId,
             ]);
 
             Mail::to($user->email)->send(new EmployeeInvitationMail($user));

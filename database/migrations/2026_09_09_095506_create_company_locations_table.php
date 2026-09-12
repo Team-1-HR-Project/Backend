@@ -18,21 +18,19 @@ return new class extends Migration
             $table->decimal('latitude', 10, 7);
             $table->decimal('longitude', 10, 7);
 
-              // Radius in meters
-              $table->unsignedInteger('radius');
+            // Radius in meters
+            $table->unsignedInteger('radius');
 
-              $table->boolean('is_active')->default(true);
+            $table->boolean('is_active')->default(true);
 
-              $table->foreignId('created_by')
-              ->nullable()
-              ->constrained('users')
-              ->nullOnDelete();
+            $table->foreignId('created_by')
+                ->nullable()
+                ->constrained('users')
+                ->nullOnDelete();
 
-              $table->index('is_active');
+            $table->index('is_active');
 
-
-              $table->softDeletes();
-
+            $table->softDeletes();
 
             $table->timestamps();
         });

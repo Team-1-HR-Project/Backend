@@ -46,6 +46,7 @@ class StoreEmployeeRequest extends FormRequest
             ],
             'phone' => ['nullable', 'string', 'max:20'],
             'address' => ['nullable', 'string'],
+            'company_location_id' => ['nullable', 'exists:company_locations,id'],
         ];
     }
 
