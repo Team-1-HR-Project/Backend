@@ -30,7 +30,7 @@ class EmployeeService
                 }
             }
 
-            $locationId =  CompanyLocation::latest('id')->value('id');
+            $locationId = CompanyLocation::latest('id')->value('id');
 
             $user = User::create([
                 'name' => $data['name'],
@@ -84,18 +84,57 @@ class EmployeeService
 
     public function getEmployeeById(int $id): User
     {
-        return User::with(['department', 'companyLocation', 'manager', 'files', 'roles'])->findOrFail($id);
+        $user = User::with(['department', 'companyLocation', 'manager', 'files', 'roles'])->findOrFail($id);
+
+        if (empty($user->department_id) && ! empty($user->manager_id)) {
+            $managedDepartmentId = Department::where('manager_id', $user->manager_id)->value('id');
+
+            if ($managedDepartmentId) {
+                $user->update(['department_id' => $managedDepartmentId]);
+                $user->load('department');
+            }
+        }
+
+        return $user;
     }
 
     public function updateHrFields(User $user, array $data): User
     {
-        $filteredData = array_filter($data, fn ($value) => $value !== null);
+        return DB::transaction(function () use ($user, $data) {
+            $filteredData = array_filter($data, fn ($value) => $value !== null);
 
-        if (! empty($filteredData)) {
-            $user->update($filteredData);
-        }
+            if (array_key_exists('department_id', $filteredData)) {
+                $newDepartmentId = $filteredData['department_id'];
+                $roleValue = $user->role instanceof \BackedEnum ? $user->role->value : $user->role;
 
-        return $user->load(['department', 'companyLocation', 'manager', 'files']);
+                if ($newDepartmentId) {
+                    $department = Department::find($newDepartmentId);
+
+                    if ($roleValue === 'Employee') {
+                        $filteredData['manager_id'] = $department?->manager_id;
+                    }
+
+                    if ($roleValue === 'Manager') {
+                        $department?->update(['manager_id' => $user->id]);
+
+                        User::where('department_id', $newDepartmentId)
+                            ->where('id', '!=', $user->id)
+                            ->where('role', 'Employee')
+                            ->update(['manager_id' => $user->id]);
+                        
+                        $filteredData['manager_id'] = null; 
+                    }
+                } else {
+                    $filteredData['manager_id'] = null;
+                }
+            }
+
+            if (! empty($filteredData)) {
+                $user->update($filteredData);
+            }
+
+            return $user->fresh()->load(['department', 'companyLocation', 'manager', 'files']);
+        });
     }
 
     public function updateProfile(User $user, array $data): User

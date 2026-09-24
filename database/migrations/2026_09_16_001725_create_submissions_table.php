@@ -18,8 +18,8 @@ return new class extends Migration
                 ->constrained('tasks')
                 ->cascadeOnDelete();
 
-            $table->foreignId('employee_id')
-                ->constrained('employees')
+            $table->foreignId('user_id')
+                ->constrained('users')
                 ->cascadeOnDelete();
 
             $table->text('note')->nullable();
@@ -32,7 +32,7 @@ return new class extends Migration
 
             $table->timestamps();
 
-            $table->index(['task_id', 'employee_id']);
+            $table->index(['task_id', 'user_id']);
             $table->index('status');
         });
     }

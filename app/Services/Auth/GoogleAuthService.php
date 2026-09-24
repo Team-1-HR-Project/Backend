@@ -22,7 +22,7 @@ class GoogleAuthService
 
         $user = User::where('email', $googleUser->getEmail())->first();
 
-        if ($user && !$user->hasRole('Owner')) {
+        if ($user && ! $user->hasRole('Owner')) {
             throw ValidationException::withMessages([
                 'email' => 'You are not authorized to log in with Google.',
             ]);

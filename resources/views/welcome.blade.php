@@ -108,7 +108,7 @@
 
                 <!-- Scalar Documentation Card -->
                 <a
-                    href="https://registry.scalar.com/&#64;default-team-xbshx/apis/hr-api-documentation&#64;latest#description/introduction"
+                    href="https://registry.scalar.com/@workwise/apis/hr-api-documentation@1.0.0?format=preview#description/introduction"
                     target="_blank"
                     rel="noopener noreferrer"
                     class="group relative bg-white rounded-2xl p-6 lg:p-8 border border-slate-200/80 shadow-sm hover:shadow-xl hover:border-emerald-500/50 transition-all duration-300 flex flex-col justify-between overflow-hidden"

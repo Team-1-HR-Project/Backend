@@ -25,7 +25,7 @@ class HrAttendanceExceptionResource extends JsonResource
             'check_out' => $this->check_out?->format('h:i A'),
             'status' => __('attendance.status.'.$rawStatus),
             'exception_reason' => $this->exception_reason ?? 'N/A',
-            'location_name' => $this->companyLocation?->name,
+            'company_name' => $this->companyLocation?->name,
         ];
     }
 }

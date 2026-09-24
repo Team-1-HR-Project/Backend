@@ -268,7 +268,6 @@ class User extends Authenticatable implements JWTSubject
         return $this->morphOne(File::class, 'fileable')->latestOfMany();
     }
 
-
     public function policies(): HasMany
     {
         return $this->hasMany(Policy::class, 'created_by');
@@ -278,6 +277,4 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->hasMany(PolicyVersion::class, 'created_by');
     }
-
-
 }

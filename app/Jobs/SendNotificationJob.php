@@ -14,6 +14,7 @@ class SendNotificationJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+
     public function __construct(
         public User $user,
         public string $type,

@@ -19,7 +19,8 @@ class CalendarService
      *
      * @return Collection<int, array<string, mixed>>
      */
-    public function getEvents(User $user, Carbon $from, Carbon $to): Collection {
+    public function getEvents(User $user, Carbon $from, Carbon $to): Collection
+    {
         $events = collect();
 
         // Add approved leave events.
@@ -47,7 +48,7 @@ class CalendarService
                 to: $to
             )
         );
-    // Add active company events.
+        // Add active company events.
         $events = $events->merge(
             $this->getCompanyEventEvents(
                 user: $user,
@@ -70,7 +71,8 @@ class CalendarService
      *
      * @return Collection<int, array<string, mixed>>
      */
-    private function getApprovedLeaveEvents(User $user, Carbon $from,Carbon $to): Collection {
+    private function getApprovedLeaveEvents(User $user, Carbon $from, Carbon $to): Collection
+    {
         $leaveRequests = LeaveRequest::query()
             ->where('user_id', $user->id)
             ->where('status', LeaveStatus::Approved)
@@ -112,7 +114,8 @@ class CalendarService
      *
      * @return Collection<int, array<string, mixed>>
      */
-    private function getTaskDeadlineEvents( User $user, Carbon $from,Carbon $to): Collection {
+    private function getTaskDeadlineEvents(User $user, Carbon $from, Carbon $to): Collection
+    {
         return Task::query()
             ->whereHas(
                 'assignments',
@@ -145,7 +148,8 @@ class CalendarService
      *
      * @return Collection<int, array<string, mixed>>
      */
-    private function getHolidayEvents( Carbon $from,Carbon $to): Collection {
+    private function getHolidayEvents(Carbon $from, Carbon $to): Collection
+    {
         $holidays = Holiday::query()
             ->where('is_active', true)
             ->whereDate('start_date', '<=', $to->toDateString())
@@ -180,29 +184,31 @@ class CalendarService
             }
         );
     }
-    private function getCompanyEventEvents(User $user,Carbon $from,Carbon $to): Collection {
+
+    private function getCompanyEventEvents(User $user, Carbon $from, Carbon $to): Collection
+    {
         if (! $user->can('company_event.view')) {
             return collect();
         }
-    
+
         $events = CompanyEvent::query()
             ->where('is_active', true)
             ->whereDate('start_date', '<=', $to->toDateString())
             ->whereDate('end_date', '>=', $from->toDateString())
             ->get(['id', 'start_date', 'end_date']);
-    
+
         return $events->flatMap(
             function (CompanyEvent $event) use ($from, $to) {
                 $start = Carbon::parse($event->start_date)
                     ->max($from->copy()->startOfDay());
-    
+
                 $end = Carbon::parse($event->end_date)
                     ->min($to->copy()->startOfDay());
-    
+
                 if ($start->gt($end)) {
                     return collect();
                 }
-    
+
                 return collect(CarbonPeriod::create($start, $end))
                     ->map(fn (Carbon $date) => [
                         'date' => $date->toDateString(),

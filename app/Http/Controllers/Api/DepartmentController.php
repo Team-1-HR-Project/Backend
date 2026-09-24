@@ -111,7 +111,8 @@ class DepartmentController extends Controller
             );
         }
     }
-    public function GetManagersDropdown() :JsonResponse
+
+    public function GetManagersDropdown(): JsonResponse
     {
         $managers = $this->departmentService->getManagersForDropdown();
 

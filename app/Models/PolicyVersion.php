@@ -35,7 +35,7 @@ class PolicyVersion extends Model
     }
 
     public function audits(): HasMany
-{
-    return $this->hasMany(PolicyAudit::class);
-}
+    {
+        return $this->hasMany(PolicyAudit::class);
+    }
 }

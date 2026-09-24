@@ -16,6 +16,7 @@ class HrMonthlySummaryResource extends JsonResource
             'user_id' => $user->id,
             'employee_code' => $user->employee_id,
             'name' => $user->name,
+            'role' => $user->role,
             'job_title' => $user->job_title,
             'department' => $user->department?->name ?? 'N/A',
             'summary' => [

@@ -89,8 +89,8 @@ return [
 
     // System & Files
     'permission.view-all' => 'View All Permissions',
-    'file.download'       => 'Download Files',
-    'file.delete'         => 'Delete Files',
+    'file.download' => 'Download Files',
+    'file.delete' => 'Delete Files',
     // company events
     'company_event.view' => 'View company events',
     'company_event.manage' => 'Manage company events',
@@ -111,6 +111,6 @@ return [
     'ai.attention_signal' => 'View AI Employee Attention Signal',
     'ai.team_insight' => 'View AI Team Insight Summary',
     'ai.policy_assistant' => 'Use AI HR Policy Assistant',
-    
+
     'department.view-managers-dropdown' => 'View Managers Dropdown',
 ];

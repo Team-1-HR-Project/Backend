@@ -29,6 +29,7 @@ class HrDailyAttendanceResource extends JsonResource
         return [
             'user_id' => $this->id,
             'name' => $this->name,
+            'role' => $this->role,
             'employee_code' => $this->employee_id,
             'job_title' => $this->job_title,
             'department' => $this->department?->name ?? 'N/A',

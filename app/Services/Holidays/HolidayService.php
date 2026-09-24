@@ -47,7 +47,8 @@ class HolidayService
     /**
      * Get active holidays overlapping the given calendar period.
      */
-    public function getForCalendar(Carbon $from, Carbon $to): Collection {
+    public function getForCalendar(Carbon $from, Carbon $to): Collection
+    {
         return Holiday::query()
             ->where('is_active', true)
             ->whereDate('start_date', '<=', $to->toDateString())

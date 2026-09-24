@@ -24,7 +24,8 @@ class CompanyEventService
             ->get();
     }
 
-    public function update(CompanyEvent $companyEvent, array $data): CompanyEvent {
+    public function update(CompanyEvent $companyEvent, array $data): CompanyEvent
+    {
         $companyEvent->update($data);
 
         return $companyEvent->refresh();
@@ -35,7 +36,8 @@ class CompanyEventService
         $companyEvent->delete();
     }
 
-    public function getForCalendar(Carbon $from,Carbon $to): Collection {
+    public function getForCalendar(Carbon $from, Carbon $to): Collection
+    {
         return CompanyEvent::query()
             ->where('is_active', true)
             ->whereDate('start_date', '<=', $to->toDateString())

@@ -85,6 +85,7 @@ class DepartmentService
 
         return $department->load('manager');
     }
+
     public function getManagersForDropdown(): Collection
     {
         return User::query()

@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Api;
 
 use App\Helpers\ResponseHelper;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\UserResource;
 use App\Services\Auth\GoogleAuthService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -42,11 +41,13 @@ class GoogleAuthController extends Controller
         $frontendUrl = config('app.frontend_url');
         try {
             $result = $this->googleAuthService->handleGoogleCallback();
+
             return redirect()->to("{$frontendUrl}#token={$result['access_token']}");
         } catch (ValidationException $e) {
             return redirect()->to("{$frontendUrl}?message=not_authorized");
         } catch (Throwable $e) {
             report($e);
+
             return redirect()->to("{$frontendUrl}?message=auth_failed");
         }
     }

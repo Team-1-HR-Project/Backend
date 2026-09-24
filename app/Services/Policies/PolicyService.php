@@ -12,7 +12,8 @@ use Illuminate\Support\Facades\DB;
 
 class PolicyService
 {
-    public function create(User $user,array $policyData,string $content): Policy {
+    public function create(User $user, array $policyData, string $content): Policy
+    {
         return DB::transaction(function () use ($user, $policyData, $content) {
 
             $policy = Policy::create([
@@ -35,7 +36,8 @@ class PolicyService
         });
     }
 
-    public function createVersion(User $user,Policy $policy,string $content): PolicyVersion {
+    public function createVersion(User $user, Policy $policy, string $content): PolicyVersion
+    {
         return DB::transaction(function () use ($user, $policy, $content) {
 
             $nextVersion = ((int) $policy->versions()->max('version')) + 1;
@@ -57,30 +59,30 @@ class PolicyService
         PolicyVersion $version
     ): PolicyVersion {
         return DB::transaction(function () use ($user, $policy, $version) {
-    
+
             if ($version->policy_id !== $policy->id) {
                 throw new \InvalidArgumentException(
                     'The policy version does not belong to this policy.'
                 );
             }
-    
+
             $oldStatus = $version->status->value;
-    
+
             $policy->versions()
                 ->where('id', '!=', $version->id)
                 ->update([
                     'status' => PolicyVersionStatus::Archived,
                 ]);
-    
+
             $version->update([
                 'status' => PolicyVersionStatus::Active,
                 'effective_date' => now()->toDateString(),
             ]);
-    
+
             $policy->update([
                 'status' => PolicyStatus::Active,
             ]);
-    
+
             PolicyAudit::create([
                 'policy_id' => $policy->id,
                 'policy_version_id' => $version->id,
@@ -90,10 +92,11 @@ class PolicyService
                 'new_status' => PolicyVersionStatus::Active->value,
                 'description' => "Policy version {$version->version} was activated.",
             ]);
-    
+
             return $version->refresh();
         });
     }
+
     public function getActiveVersion(Policy $policy): ?PolicyVersion
     {
         return $policy->versions()
@@ -103,40 +106,40 @@ class PolicyService
 
     // policy list for HR
     public function list(array $filters = [])
-{
-    return Policy::query()
-        ->with([
-            'versions' => function ($query) use ($filters) {
-                if (!empty($filters['version_status'])) {
-                    $query->where(
-                        'status',
-                        $filters['version_status']
-                    );
-                }
+    {
+        return Policy::query()
+            ->with([
+                'versions' => function ($query) use ($filters) {
+                    if (! empty($filters['version_status'])) {
+                        $query->where(
+                            'status',
+                            $filters['version_status']
+                        );
+                    }
 
-                $query->orderByDesc('version');
-            },
-        ])
-        ->when(
-            !empty($filters['status']),
-            fn ($query) => $query->where(
-                'status',
-                $filters['status']
+                    $query->orderByDesc('version');
+                },
+            ])
+            ->when(
+                ! empty($filters['status']),
+                fn ($query) => $query->where(
+                    'status',
+                    $filters['status']
+                )
             )
-        )
-        ->latest()
-        ->get();
-}
+            ->latest()
+            ->get();
+    }
 
-// audit history
-public function getAuditHistory(Policy $policy)
-{
-    return $policy->audits()
-        ->with([
-            'policyVersion:id,policy_id,version,content,status,effective_date',
-            'performer:id,name',
-        ])
-        ->latest()
-        ->get();
-}
+    // audit history
+    public function getAuditHistory(Policy $policy)
+    {
+        return $policy->audits()
+            ->with([
+                'policyVersion:id,policy_id,version,content,status,effective_date',
+                'performer:id,name',
+            ])
+            ->latest()
+            ->get();
+    }
 }

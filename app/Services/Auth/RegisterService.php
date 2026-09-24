@@ -33,6 +33,7 @@ class RegisterService
         // Generate JWT access token
         $token = JWTAuth::fromUser($user);
         $user = $user->fresh();
+
         return [
             'access_token' => $token,
             'token_type' => 'bearer',

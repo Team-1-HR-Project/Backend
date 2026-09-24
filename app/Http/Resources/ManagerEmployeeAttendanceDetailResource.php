@@ -25,7 +25,7 @@ class ManagerEmployeeAttendanceDetailResource extends JsonResource
                 'name' => $user->name,
                 'job_title' => $user->job_title,
                 'email' => $user->email,
-                'location_name' => $user->companyLocation?->name,
+                'company_name' => $user->companyLocation?->name,
             ],
             'attendance' => [
                 'id' => $attendance?->id,
@@ -36,10 +36,6 @@ class ManagerEmployeeAttendanceDetailResource extends JsonResource
                     'longitude' => (float) $attendance->check_in_lng,
                 ] : null,
                 'check_out' => $attendance?->check_out?->format('h:i A'),
-                'check_out_location' => $attendance?->check_out_lat ? [
-                    'latitude' => (float) $attendance->check_out_lat,
-                    'longitude' => (float) $attendance->check_out_lng,
-                ] : null,
                 'status' => __('attendance.status.'.$rawStatus),
                 'worked_seconds' => $attendance?->worked_seconds ?? 0,
                 'worked_hours_formatted' => $hoursFormatted,

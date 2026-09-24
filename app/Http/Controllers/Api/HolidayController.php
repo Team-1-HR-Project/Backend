@@ -14,8 +14,7 @@ class HolidayController extends Controller
 {
     public function __construct(
         protected HolidayService $holidayService
-    ) {
-    }
+    ) {}
 
     /**
      * Display all holidays.

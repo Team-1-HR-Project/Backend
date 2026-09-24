@@ -16,6 +16,7 @@ class Policy extends Model
         'status',
         'created_by',
     ];
+
     protected $casts = [
         'status' => PolicyStatus::class,
     ];
@@ -35,8 +36,9 @@ class Policy extends Model
         return $this->hasOne(PolicyVersion::class)
             ->where('status', 'active');
     }
+
     public function audits(): HasMany
-{
-    return $this->hasMany(PolicyAudit::class);
-}
+    {
+        return $this->hasMany(PolicyAudit::class);
+    }
 }

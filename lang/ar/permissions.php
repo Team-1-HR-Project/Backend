@@ -89,9 +89,9 @@ return [
 
     // System & Files
     'permission.view-all' => 'عرض جميع الصلاحيات',
-    'file.download'       => 'تحميل الملفات',
-    'file.delete'         => 'حذف الملفات',
-     // company events
+    'file.download' => 'تحميل الملفات',
+    'file.delete' => 'حذف الملفات',
+    // company events
     'company_event.view' => 'عرض فعاليات الشركة',
     'company_event.manage' => 'إدارة فعاليات الشركة',
     // policies
@@ -112,6 +112,6 @@ return [
     'ai.attention_signal' => 'عرض مؤشر تنبيه أداء الموظفين الذكي (AI Employee Attention Signal)',
     'ai.team_insight' => 'عرض ملخص تحليلات الفريق الذكي (AI Team Insight Summary)',
     'ai.policy_assistant' => 'استخدام مساعد سياسات الشركة الذكي (AI HR Policy Assistant)',
-    
+
     'department.view-managers-dropdown' => 'عرض قائمة المدراء للقوائم المنسدلة',
 ];

@@ -14,8 +14,7 @@ class CompanyEventController extends Controller
 {
     public function __construct(
         protected CompanyEventService $companyEventService
-    ) {
-    }
+    ) {}
 
     public function index(): JsonResponse
     {
@@ -40,7 +39,8 @@ class CompanyEventController extends Controller
         );
     }
 
-    public function update( UpdateCompanyEventRequest $request, CompanyEvent $companyEvent): JsonResponse {
+    public function update(UpdateCompanyEventRequest $request, CompanyEvent $companyEvent): JsonResponse
+    {
         $event = $this->companyEventService->update(
             companyEvent: $companyEvent,
             data: $request->validated()

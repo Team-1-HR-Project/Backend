@@ -8,17 +8,16 @@ use App\Http\Requests\Policies\IndexPolicyRequest;
 use App\Http\Requests\Policies\StorePolicyRequest;
 use App\Http\Requests\Policies\StorePolicyVersionRequest;
 use App\Models\Policy;
-use Illuminate\Http\Request;
 use App\Models\PolicyVersion;
 use App\Services\Policies\PolicyService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class PolicyController extends Controller
 {
     public function __construct(
         private PolicyService $policyService
-    ) {
-    }
+    ) {}
 
     public function store(StorePolicyRequest $request): JsonResponse
     {
@@ -37,7 +36,8 @@ class PolicyController extends Controller
         );
     }
 
-    public function storeVersion( StorePolicyVersionRequest $request, Policy $policy): JsonResponse {
+    public function storeVersion(StorePolicyVersionRequest $request, Policy $policy): JsonResponse
+    {
         $version = $this->policyService->createVersion(
             user: $request->user(),
             policy: $policy,
@@ -50,13 +50,14 @@ class PolicyController extends Controller
         );
     }
 
-    public function activateVersion(Request $request,Policy $policy,PolicyVersion $version ): JsonResponse {
+    public function activateVersion(Request $request, Policy $policy, PolicyVersion $version): JsonResponse
+    {
         $version = $this->policyService->activateVersion(
             user: $request->user(),
             policy: $policy,
             version: $version,
         );
-    
+
         return ResponseHelper::success(
             data: $version,
             message: __('messages.policy_version_activated_successfully')
@@ -67,7 +68,7 @@ class PolicyController extends Controller
     {
         $version = $this->policyService->getActiveVersion($policy);
 
-        if (!$version) {
+        if (! $version) {
             return ResponseHelper::error(
                 message: __('messages.no_active_policy_version_found')
             );
@@ -78,28 +79,28 @@ class PolicyController extends Controller
             message: __('messages.active_policy_retrieved_successfully')
         );
     }
+
     // policy list for HR
     public function index(IndexPolicyRequest $request): JsonResponse
-     {
-         $policies = $this->policyService->list(
-             $request->validated()
-         );
-     
-         return ResponseHelper::success(
-             data: $policies,
-             message: __('messages.policies_retrieved_successfully')
-         );
-     }
+    {
+        $policies = $this->policyService->list(
+            $request->validated()
+        );
 
+        return ResponseHelper::success(
+            data: $policies,
+            message: __('messages.policies_retrieved_successfully')
+        );
+    }
 
-     // audit History
-     public function auditHistory(Policy $policy): JsonResponse
-{
-    $audits = $this->policyService->getAuditHistory($policy);
+    // audit History
+    public function auditHistory(Policy $policy): JsonResponse
+    {
+        $audits = $this->policyService->getAuditHistory($policy);
 
-    return ResponseHelper::success(
-        data: $audits,
-        message: __('messages.policy_audit_history_retrieved_successfully')
-    );
-}
+        return ResponseHelper::success(
+            data: $audits,
+            message: __('messages.policy_audit_history_retrieved_successfully')
+        );
+    }
 }
