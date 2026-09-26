@@ -29,10 +29,15 @@ class GoalController extends Controller
 
             $status = $request->query('status');
             $goals = $this->goalService->getEmployeeGoals($user, $status);
+            $paginatedData = GoalResource::collection($goals)->response()->getData(true);
 
             return ResponseHelper::success(
-                GoalResource::collection($goals)->response()->getData(true),
-                __('goal.retrieved')
+                data: [
+                    'goals' => $paginatedData['data'],
+                    'links' => $paginatedData['links'],
+                    'meta' => $paginatedData['meta'],
+                ],
+                message: __('goal.retrieved')
             );
         } catch (Throwable $e) {
             report($e);

@@ -25,9 +25,15 @@ class EmployeeEvaluationController extends Controller
 
             $evaluations = $this->evaluationService->getEmployeeEvaluationsHistory($user, 10);
 
+            $paginatedData = EvaluationResource::collection($evaluations)->response()->getData(true);
+
             return ResponseHelper::success(
-                EvaluationResource::collection($evaluations)->response()->getData(true),
-                __('evaluation.history_retrieved')
+                data: [
+                    'evaluations' => $paginatedData['data'],
+                    'links' => $paginatedData['links'],
+                    'meta' => $paginatedData['meta'],
+                ],
+                message: __('evaluation.history_retrieved')
             );
         } catch (Throwable $e) {
             report($e);

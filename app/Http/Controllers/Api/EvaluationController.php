@@ -135,9 +135,15 @@ class EvaluationController extends Controller
 
             $evaluations = $this->evaluationService->getManagerTeamEvaluations($manager, $status, $periodId);
 
+            $paginatedData = EvaluationResource::collection($evaluations)->response()->getData(true);
+
             return ResponseHelper::success(
-                EvaluationResource::collection($evaluations)->response()->getData(true),
-                __('evaluation.team_evaluations')
+                data: [
+                    'evaluations' => $paginatedData['data'],
+                    'links' => $paginatedData['links'],
+                    'meta' => $paginatedData['meta'],
+                ],
+                message: __('evaluation.team_evaluations')
             );
         } catch (Throwable $e) {
             report($e);

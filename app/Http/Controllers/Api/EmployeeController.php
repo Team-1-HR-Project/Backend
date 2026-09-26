@@ -195,7 +195,11 @@ class EmployeeController extends Controller
             $paginatedData = UserResource::collection($employees)->response()->getData(true);
 
             return ResponseHelper::success(
-                data: $paginatedData,
+                data: [
+                    'employees' => $paginatedData['data'],
+                    'links' => $paginatedData['links'],
+                    'meta' => $paginatedData['meta'],
+                ],
                 message: __('employees.retrieved_successfully')
             );
         } catch (Throwable $e) {

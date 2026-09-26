@@ -17,10 +17,28 @@ class ResponseHelper
 
     public static function error(mixed $errors = null, ?string $message = null, int $statusCode = 400): JsonResponse
     {
+        $resolvedMessage = $message;
+
+        if (!empty($errors)) {
+            if ($errors instanceof \Illuminate\Contracts\Support\MessageProvider) {
+                $errorMessages = $errors->getMessageBag()->all();
+            } elseif ($errors instanceof \Illuminate\Contracts\Support\Arrayable) {
+                $errorMessages = \Illuminate\Support\Arr::flatten($errors->toArray());
+            } elseif (is_array($errors)) {
+                $errorMessages = \Illuminate\Support\Arr::flatten($errors);
+            } else {
+                $errorMessages = [(string) $errors];
+            }
+
+            $errorMessages = array_filter(array_map('trim', $errorMessages));
+            if (!empty($errorMessages)) {
+                $resolvedMessage = implode(' ', $errorMessages);
+            }
+        }
+
         return response()->json([
             'success' => false,
-            'message' => $message ?? __('An error occurred'),
-            'errors' => $errors,
+            'message' => $resolvedMessage ?? __('An error occurred'),
         ], $statusCode);
     }
 }

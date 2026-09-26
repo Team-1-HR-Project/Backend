@@ -39,9 +39,15 @@ class HrEvaluationSetupController extends Controller
                 10
             );
 
+            $paginatedData = EvaluationResource::collection($evaluations)->response()->getData(true);
+
             return ResponseHelper::success(
-                EvaluationResource::collection($evaluations)->response()->getData(true),
-                __('evaluation.overview_retrieved')
+                data: [
+                    'evaluations' => $paginatedData['data'],
+                    'links' => $paginatedData['links'],
+                    'meta' => $paginatedData['meta'],
+                ],
+                message: __('evaluation.overview_retrieved')
             );
         } catch (Throwable $e) {
             report($e);
@@ -59,9 +65,15 @@ class HrEvaluationSetupController extends Controller
         try {
             $periods = EvaluationPeriod::latest()->paginate(10);
 
+            $paginatedData = EvaluationPeriodResource::collection($periods)->response()->getData(true);
+
             return ResponseHelper::success(
-                EvaluationPeriodResource::collection($periods)->response()->getData(true),
-                __('evaluation.periods_retrieved')
+                data: [
+                    'periods' => $paginatedData['data'],
+                    'links' => $paginatedData['links'],
+                    'meta' => $paginatedData['meta'],
+                ],
+                message: __('evaluation.periods_retrieved')
             );
         } catch (Throwable $e) {
             report($e);
@@ -119,9 +131,15 @@ class HrEvaluationSetupController extends Controller
         try {
             $categories = EvaluationCategory::latest()->paginate(10);
 
+            $paginatedData = EvaluationCategoryResource::collection($categories)->response()->getData(true);
+
             return ResponseHelper::success(
-                EvaluationCategoryResource::collection($categories)->response()->getData(true),
-                __('evaluation.categories_retrieved')
+                data: [
+                    'categories' => $paginatedData['data'],
+                    'links' => $paginatedData['links'],
+                    'meta' => $paginatedData['meta'],
+                ],
+                message: __('evaluation.categories_retrieved')
             );
         } catch (Throwable $e) {
             report($e);

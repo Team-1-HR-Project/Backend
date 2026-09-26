@@ -34,7 +34,11 @@ class ManagerController extends Controller
             $paginatedData = UserResource::collection($employees)->response()->getData(true);
 
             return ResponseHelper::success(
-                data: $paginatedData,
+                data: [
+                    'employees' => $paginatedData['data'],
+                    'links' => $paginatedData['links'],
+                    'meta' => $paginatedData['meta'],
+                ],
                 message: __('manager.employees_retrieved')
             );
         } catch (Throwable $e) {
@@ -65,9 +69,15 @@ class ManagerController extends Controller
                 $userId ? (int) $userId : null
             );
 
+            $paginatedData = GoalResource::collection($goals)->response()->getData(true);
+
             return ResponseHelper::success(
-                GoalResource::collection($goals)->response()->getData(true),
-                __('goal.team_goals_retrieved')
+                data: [
+                    'goals' => $paginatedData['data'],
+                    'links' => $paginatedData['links'],
+                    'meta' => $paginatedData['meta'],
+                ],
+                message: __('goal.team_goals_retrieved')
             );
         } catch (Throwable $e) {
             report($e);

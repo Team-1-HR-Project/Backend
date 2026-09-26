@@ -27,9 +27,15 @@ class HrGoalController extends Controller
                 $userId ? (int) $userId : null
             );
 
+            $paginatedData = GoalResource::collection($goals)->response()->getData(true);
+
             return ResponseHelper::success(
-                GoalResource::collection($goals)->response()->getData(true),
-                __('goal.company_overview')
+                data: [
+                    'goals' => $paginatedData['data'],
+                    'links' => $paginatedData['links'],
+                    'meta' => $paginatedData['meta'],
+                ],
+                message: __('goal.company_overview')
             );
         } catch (Throwable $e) {
             report($e);

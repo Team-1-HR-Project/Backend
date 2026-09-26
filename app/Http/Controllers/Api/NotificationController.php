@@ -20,9 +20,15 @@ class NotificationController extends Controller
                 ->notifications()
                 ->paginate($request->get('per_page', 15));
 
+            $paginatedData = NotificationResource::collection($notifications)->response()->getData(true);
+
             return ResponseHelper::success(
-                NotificationResource::collection($notifications)->response()->getData(true),
-                __('notifications.retrieved')
+                data: [
+                    'notifications' => $paginatedData['data'],
+                    'links' => $paginatedData['links'],
+                    'meta' => $paginatedData['meta'],
+                ],
+                message: __('notifications.retrieved')
             );
         } catch (Throwable $e) {
             report($e);
