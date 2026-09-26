@@ -31,6 +31,14 @@ paths:
             type: string
             default: application/json
           example: application/json
+        - in: header
+          name: Accept-Language
+          required: false
+          schema:
+            type: string
+            enum:
+              - ar
+              - en
         - in: query
           name: lang
           required: false
@@ -317,6 +325,14 @@ paths:
             type: string
             default: application/json
           example: application/json
+        - in: header
+          name: Accept-Language
+          required: false
+          schema:
+            type: string
+            enum:
+              - ar
+              - en
         - in: query
           name: lang
           required: false
@@ -397,6 +413,14 @@ paths:
             type: string
             default: application/json
           example: application/json
+        - in: header
+          name: Accept-Language
+          required: false
+          schema:
+            type: string
+            enum:
+              - ar
+              - en
       responses:
         "200":
           description: Google redirect URL generated successfully.
@@ -419,6 +443,12 @@ paths:
                 message: Google redirect URL generated successfully
                 data:
                   url: https://accounts.google.com/o/oauth2/v2/auth?client_id=123456789.apps.googleusercontent.com&redirect_uri=http%3A%2F%2Flocalhost%3A8000%2Fapi%2Fauth%2Fgoogle%2Fcallback&response_type=code&scope=openid+profile+email
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
   /api/permissions:
     get:
       summary: Retrieve all permissions (This route is allowed for roles Owner, HR)
@@ -437,6 +467,14 @@ paths:
             type: string
             default: application/json
           example: application/json
+        - in: header
+          name: Accept-Language
+          required: false
+          schema:
+            type: string
+            enum:
+              - ar
+              - en
         - in: query
           name: lang
           required: false
@@ -557,6 +595,14 @@ paths:
             type: string
             default: application/json
           example: application/json
+        - in: header
+          name: Accept-Language
+          required: false
+          schema:
+            type: string
+            enum:
+              - ar
+              - en
         - in: query
           name: search
           required: false
@@ -827,6 +873,14 @@ paths:
             type: string
             default: application/json
           example: application/json
+        - in: header
+          name: Accept-Language
+          required: false
+          schema:
+            type: string
+            enum:
+              - ar
+              - en
         - in: query
           name: lang
           required: false
@@ -1141,6 +1195,14 @@ paths:
             type: string
             default: application/json
           example: application/json
+        - in: header
+          name: Accept-Language
+          required: false
+          schema:
+            type: string
+            enum:
+              - ar
+              - en
         - in: query
           name: lang
           required: false
@@ -1394,6 +1456,14 @@ paths:
             type: string
             default: application/json
           example: application/json
+        - in: header
+          name: Accept-Language
+          required: false
+          schema:
+            type: string
+            enum:
+              - ar
+              - en
         - in: query
           name: lang
           required: false
@@ -1681,6 +1751,14 @@ paths:
             type: string
             default: application/json
           example: application/json
+        - in: header
+          name: Accept-Language
+          required: false
+          schema:
+            type: string
+            enum:
+              - ar
+              - en
         - in: path
           name: id
           required: true
@@ -1907,6 +1985,14 @@ paths:
             type: string
             default: application/json
           example: application/json
+        - in: header
+          name: Accept-Language
+          required: false
+          schema:
+            type: string
+            enum:
+              - ar
+              - en
         - in: path
           name: id
           required: true
@@ -2184,6 +2270,14 @@ paths:
             type: string
             default: application/json
           example: application/json
+        - in: header
+          name: Accept-Language
+          required: false
+          schema:
+            type: string
+            enum:
+              - ar
+              - en
         - in: query
           name: search
           required: false
@@ -2393,6 +2487,14 @@ paths:
             type: string
             default: application/json
           example: application/json
+        - in: header
+          name: Accept-Language
+          required: false
+          schema:
+            type: string
+            enum:
+              - ar
+              - en
       requestBody:
         required: true
         content:
@@ -2567,7 +2669,7 @@ paths:
                   errors:
                     nullable: true
                     example: null
-  
+
   /api/departments/{id}:
     patch:
       summary: "Update department details (Allowed For Owner/HR Only)"
@@ -2585,6 +2687,14 @@ paths:
             type: string
             default: application/json
           example: application/json
+        - in: header
+          name: Accept-Language
+          required: false
+          schema:
+            type: string
+            enum:
+              - ar
+              - en
         - in: path
           name: id
           required: true
@@ -2795,6 +2905,14 @@ paths:
             type: string
             default: application/json
           example: application/json
+        - in: header
+          name: Accept-Language
+          required: false
+          schema:
+            type: string
+            enum:
+              - ar
+              - en
         - in: path
           name: id
           required: true
@@ -2966,6 +3084,14 @@ paths:
             type: string
             default: application/json
           example: application/json
+        - in: header
+          name: Accept-Language
+          required: false
+          schema:
+            type: string
+            enum:
+              - ar
+              - en
         - in: query
           name: search
           required: false
@@ -3316,6 +3442,14 @@ paths:
             type: string
             default: application/json
           example: application/json
+        - in: header
+          name: Accept-Language
+          required: false
+          schema:
+            type: string
+            enum:
+              - ar
+              - en
         - in: query
           name: latitude
           required: false
@@ -3458,7 +3592,13 @@ paths:
                 errors:
                   latitude:
                     - The latitude must be between -90 and 90.
-  
+
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
   /api/attendance/check-in:
     post:
       summary: Perform check-in for the authenticated employee(All Roles) 📱
@@ -3475,6 +3615,14 @@ paths:
             type: string
             default: application/json
           example: application/json
+        - in: header
+          name: Accept-Language
+          required: false
+          schema:
+            type: string
+            enum:
+              - ar
+              - en
       requestBody:
         required: true
         content:
@@ -3647,6 +3795,12 @@ paths:
                     success: false
                     message: Company location is not assigned or active for your profile.
                     errors: null
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
   /api/attendance/check-out:
     post:
       summary: "Perform check-out for the authenticated employee (All Roles) 📱"
@@ -3664,6 +3818,14 @@ paths:
             type: string
             default: application/json
           example: application/json
+        - in: header
+          name: Accept-Language
+          required: false
+          schema:
+            type: string
+            enum:
+              - ar
+              - en
       responses:
         "200":
           description: Checked out successfully.
@@ -3765,6 +3927,12 @@ paths:
                     success: false
                     message: "You have already checked out today."
                     errors: null
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
   /api/attendance/history:
     get:
       summary: Retrieve paginated attendance history for (employee) 📱
@@ -3781,6 +3949,14 @@ paths:
             type: string
             default: application/json
           example: application/json
+        - in: header
+          name: Accept-Language
+          required: false
+          schema:
+            type: string
+            enum:
+              - ar
+              - en
         - in: query
           name: month
           required: false
@@ -4003,6 +4179,12 @@ paths:
                 success: false
                 message: Employee profile not found.
                 errors: null
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
   /api/manager/attendance/today:
     get:
       summary: Retrieve today's team attendance summary, weekly chart, and team members attendance list (Manager)
@@ -4019,6 +4201,14 @@ paths:
             type: string
             default: application/json
           example: application/json
+        - in: header
+          name: Accept-Language
+          required: false
+          schema:
+            type: string
+            enum:
+              - ar
+              - en
         - in: query
           name: date
           required: false
@@ -4313,7 +4503,13 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
         "422":
           $ref: '#/components/responses/422ValidationError'
-  
+
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
   /api/manager/attendance/{employeeId}:
     get:
       summary: "Retrieve attendance details for a specific employee managed by the authenticated manager (Manager)"
@@ -4331,6 +4527,14 @@ paths:
             type: string
             default: application/json
           example: application/json
+        - in: header
+          name: Accept-Language
+          required: false
+          schema:
+            type: string
+            enum:
+              - ar
+              - en
         - in: path
           name: employeeId
           required: true
@@ -4448,7 +4652,7 @@ paths:
                       latitude: 30.0444196
                       longitude: 31.2357116
                     check_out: 03:34 PM
-                    
+
                     status: Late
                     worked_seconds: 15
                     worked_hours_formatted: 0.0h
@@ -4560,6 +4764,14 @@ paths:
             type: string
             default: application/json
           example: application/json
+        - in: header
+          name: Accept-Language
+          required: false
+          schema:
+            type: string
+            enum:
+              - ar
+              - en
         - in: query
           name: date
           required: false
@@ -4926,6 +5138,14 @@ paths:
             type: string
             default: application/json
           example: application/json
+        - in: header
+          name: Accept-Language
+          required: false
+          schema:
+            type: string
+            enum:
+              - ar
+              - en
         - in: query
           name: date
           required: false
@@ -5215,6 +5435,14 @@ paths:
             type: string
             default: application/json
           example: application/json
+        - in: header
+          name: Accept-Language
+          required: false
+          schema:
+            type: string
+            enum:
+              - ar
+              - en
         - in: query
           name: month
           required: true
@@ -5541,6 +5769,14 @@ paths:
             type: string
             default: application/json
           example: application/json
+        - in: header
+          name: Accept-Language
+          required: false
+          schema:
+            type: string
+            enum:
+              - ar
+              - en
         - in: query
           name: month
           required: true
@@ -5681,6 +5917,14 @@ paths:
             type: string
             default: application/json
             example: application/json
+        - in: header
+          name: Accept-Language
+          required: false
+          schema:
+            type: string
+            enum:
+              - ar
+              - en
         - in: query
           name: page
           required: false
@@ -5712,6 +5956,12 @@ paths:
                         type: object
                       meta:
                         type: object
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
     post:
       summary: Store Evaluation Period (HR / Owner / Manager)
       operationId: storeEvaluationPeriod
@@ -5727,6 +5977,14 @@ paths:
             type: string
             default: application/json
             example: application/json
+        - in: header
+          name: Accept-Language
+          required: false
+          schema:
+            type: string
+            enum:
+              - ar
+              - en
       requestBody:
         required: true
         content:
@@ -5765,6 +6023,12 @@ paths:
                     example: Evaluation period created successfully.
                   data:
                     $ref: "#/components/schemas/EvaluationPeriod"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
   /api/evaluation-periods/{id}/toggle-status:
     patch:
       summary: Toggle Evaluation Period Status (HR / Owner / Manager)
@@ -5781,6 +6045,14 @@ paths:
             type: string
             default: application/json
             example: application/json
+        - in: header
+          name: Accept-Language
+          required: false
+          schema:
+            type: string
+            enum:
+              - ar
+              - en
         - in: path
           name: id
           required: true
@@ -5803,6 +6075,12 @@ paths:
                     example: Evaluation period status changed to active.
                   data:
                     $ref: "#/components/schemas/EvaluationPeriod"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
   /api/evaluation-categories:
     get:
       summary: List Evaluation Categories (HR / Owner / Manager)
@@ -5819,6 +6097,14 @@ paths:
             type: string
             default: application/json
             example: application/json
+        - in: header
+          name: Accept-Language
+          required: false
+          schema:
+            type: string
+            enum:
+              - ar
+              - en
         - in: query
           name: page
           required: false
@@ -5846,6 +6132,12 @@ paths:
                         type: array
                         items:
                           $ref: "#/components/schemas/EvaluationCategory"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
     post:
       summary: Store Evaluation Category (HR / Owner / Manager)
       operationId: storeEvaluationCategory
@@ -5861,6 +6153,14 @@ paths:
             type: string
             default: application/json
             example: application/json
+        - in: header
+          name: Accept-Language
+          required: false
+          schema:
+            type: string
+            enum:
+              - ar
+              - en
       requestBody:
         required: true
         content:
@@ -5897,7 +6197,13 @@ paths:
                     example: Evaluation category created successfully.
                   data:
                     $ref: "#/components/schemas/EvaluationCategory"
-  /api/hr/evaluations:
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /api/evaluations/hr:
     get:
       summary: (HR/Owner) Company Evaluations Overview
       operationId: hrEvaluationsOverview
@@ -5913,6 +6219,14 @@ paths:
             type: string
             default: application/json
             example: application/json
+        - in: header
+          name: Accept-Language
+          required: false
+          schema:
+            type: string
+            enum:
+              - ar
+              - en
         - in: query
           name: status
           required: false
@@ -5964,6 +6278,12 @@ paths:
                         type: array
                         items:
                           $ref: "#/components/schemas/Evaluation"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
   /api/evaluations:
     post:
       summary: Create Evaluation Draft (HR / Owner / Manager)
@@ -5980,6 +6300,14 @@ paths:
             type: string
             default: application/json
             example: application/json
+        - in: header
+          name: Accept-Language
+          required: false
+          schema:
+            type: string
+            enum:
+              - ar
+              - en
       requestBody:
         required: true
         content:
@@ -6036,6 +6364,12 @@ paths:
                     example: Evaluation draft created successfully.
                   data:
                     $ref: "#/components/schemas/Evaluation"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
   /api/evaluations/{id}:
     put:
       summary: Update Evaluation Draft (HR / Owner / Manager)
@@ -6052,6 +6386,14 @@ paths:
             type: string
             default: application/json
             example: application/json
+        - in: header
+          name: Accept-Language
+          required: false
+          schema:
+            type: string
+            enum:
+              - ar
+              - en
         - in: path
           name: id
           required: true
@@ -6101,6 +6443,12 @@ paths:
                     example: Evaluation draft updated successfully.
                   data:
                     $ref: "#/components/schemas/Evaluation"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
   /api/evaluations/{id}/complete:
     patch:
       summary: Complete Evaluation (HR / Owner / Manager)
@@ -6117,6 +6465,14 @@ paths:
             type: string
             default: application/json
             example: application/json
+        - in: header
+          name: Accept-Language
+          required: false
+          schema:
+            type: string
+            enum:
+              - ar
+              - en
         - in: path
           name: id
           required: true
@@ -6139,7 +6495,13 @@ paths:
                     example: Evaluation completed and locked successfully.
                   data:
                     $ref: "#/components/schemas/Evaluation"
-  /api/manager/evaluations:
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /api/evaluations/manager:
     get:
       summary: (Manager) Team Evaluations
       operationId: managerTeamEvaluations
@@ -6155,6 +6517,14 @@ paths:
             type: string
             default: application/json
             example: application/json
+        - in: header
+          name: Accept-Language
+          required: false
+          schema:
+            type: string
+            enum:
+              - ar
+              - en
         - in: query
           name: status
           required: false
@@ -6188,7 +6558,13 @@ paths:
                         type: array
                         items:
                           $ref: "#/components/schemas/Evaluation"
-  /api/employee/evaluations:
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /api/evaluations/employee:
     get:
       summary: (Employee) Evaluation History 📱
       operationId: employeeEvaluationsHistory
@@ -6204,6 +6580,14 @@ paths:
             type: string
             default: application/json
             example: application/json
+        - in: header
+          name: Accept-Language
+          required: false
+          schema:
+            type: string
+            enum:
+              - ar
+              - en
       responses:
         "200":
           description: Evaluation history retrieved successfully.
@@ -6225,6 +6609,12 @@ paths:
                         type: array
                         items:
                           $ref: "#/components/schemas/Evaluation"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
   /api/employee/performance:
     get:
       tags:
@@ -6812,6 +7202,14 @@ paths:
             type: string
             default: application/json
           example: application/json
+        - in: header
+          name: Accept-Language
+          required: false
+          schema:
+            type: string
+            enum:
+              - ar
+              - en
         - in: query
           name: per_page
           required: false
@@ -6881,6 +7279,13 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /api/notifications/clear-all:
     delete:
       summary: Clear all notifications for the authenticated user 📱
       operationId: clearAllNotifications
@@ -6896,6 +7301,15 @@ paths:
             type: string
             default: application/json
           example: application/json
+        - in: header
+          name: Accept-Language
+          required: false
+          schema:
+            type: string
+            enum:
+              - ar
+              - en
+
       responses:
         "200":
           description: All notifications cleared successfully.
@@ -6919,6 +7333,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
   /api/notifications/unread-count:
     get:
       summary: Get count of unread notifications for the authenticated user 📱
@@ -6935,6 +7355,14 @@ paths:
             type: string
             default: application/json
           example: application/json
+        - in: header
+          name: Accept-Language
+          required: false
+          schema:
+            type: string
+            enum:
+              - ar
+              - en
       responses:
         "200":
           description: Unread notifications count retrieved successfully.
@@ -6966,6 +7394,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
   /api/notifications/{id}/read:
     patch:
       summary: Mark a specific notification as read 📱
@@ -6982,6 +7416,14 @@ paths:
             type: string
             default: application/json
           example: application/json
+        - in: header
+          name: Accept-Language
+          required: false
+          schema:
+            type: string
+            enum:
+              - ar
+              - en
         - in: path
           name: id
           required: true
@@ -7022,6 +7464,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
   /api/notifications/read-all:
     patch:
       summary: Mark all unread notifications as read for the authenticated user 📱
@@ -7038,6 +7486,14 @@ paths:
             type: string
             default: application/json
           example: application/json
+        - in: header
+          name: Accept-Language
+          required: false
+          schema:
+            type: string
+            enum:
+              - ar
+              - en
       responses:
         "200":
           description: All notifications marked as read successfully.
@@ -7061,6 +7517,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
   /api/notifications/fcm-token:
     post:
       summary: Update Firebase Cloud Messaging (FCM) token for push notifications 📱
@@ -7077,6 +7539,14 @@ paths:
             type: string
             default: application/json
           example: application/json
+        - in: header
+          name: Accept-Language
+          required: false
+          schema:
+            type: string
+            enum:
+              - ar
+              - en
       requestBody:
         required: true
         content:
@@ -7118,6 +7588,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
   /api/broadcasting/auth:
     post:
       summary: Authorize user for Reverb/Laravel broadcasting channels 📱
@@ -7134,6 +7610,14 @@ paths:
             type: string
             default: application/json
           example: application/json
+        - in: header
+          name: Accept-Language
+          required: false
+          schema:
+            type: string
+            enum:
+              - ar
+              - en
       requestBody:
         required: true
         content:
@@ -7172,6 +7656,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
   /api/files/{file}/download:
     get:
       summary: Download a specific file securely via permissions or policy 📱
@@ -7188,6 +7678,14 @@ paths:
             type: string
             default: application/json
           example: application/json
+        - in: header
+          name: Accept-Language
+          required: false
+          schema:
+            type: string
+            enum:
+              - ar
+              - en
         - in: path
           name: file
           required: true
@@ -7243,6 +7741,14 @@ paths:
             type: string
             default: application/json
           example: application/json
+        - in: header
+          name: Accept-Language
+          required: false
+          schema:
+            type: string
+            enum:
+              - ar
+              - en
         - in: path
           name: file
           required: true
@@ -7310,6 +7816,14 @@ paths:
             type: string
             default: application/json
           example: application/json
+        - in: header
+          name: Accept-Language
+          required: false
+          schema:
+            type: string
+            enum:
+              - ar
+              - en
         - in: query
           name: lang
           required: false
@@ -7522,6 +8036,12 @@ paths:
           $ref: "#/components/responses/422RegistrationValidationError"
         "429":
           $ref: "#/components/responses/429TooManyRequests"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
   /api/auth/forget-password:
     post:
       summary: Forget password request to send OTP via email (This route is allowed
@@ -7537,6 +8057,14 @@ paths:
             type: string
             default: application/json
           example: application/json
+        - in: header
+          name: Accept-Language
+          required: false
+          schema:
+            type: string
+            enum:
+              - ar
+              - en
       requestBody:
         required: true
         content:
@@ -7579,6 +8107,12 @@ paths:
           $ref: "#/components/responses/422RegistrationValidationError"
         "429":
           $ref: "#/components/responses/429TooManyRequests"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
   /api/auth/forgot-password/verify-otp:
     post:
       summary: Verify OTP code (This route is allowed for all roles) 📱
@@ -7593,6 +8127,14 @@ paths:
             type: string
             default: application/json
           example: application/json
+        - in: header
+          name: Accept-Language
+          required: false
+          schema:
+            type: string
+            enum:
+              - ar
+              - en
       requestBody:
         required: true
         content:
@@ -7643,6 +8185,12 @@ paths:
           $ref: "#/components/responses/422OtpValidationError"
         "429":
           $ref: "#/components/responses/429TooManyRequests"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
   /api/auth/forgot-password/reset:
     post:
       summary: Reset user password (This route is allowed for all roles)📱
@@ -7657,6 +8205,14 @@ paths:
             type: string
             default: application/json
           example: application/json
+        - in: header
+          name: Accept-Language
+          required: false
+          schema:
+            type: string
+            enum:
+              - ar
+              - en
       requestBody:
         required: true
         content:
@@ -7706,6 +8262,12 @@ paths:
           $ref: "#/components/responses/422ResetTokenValidationError"
         "429":
           $ref: "#/components/responses/429TooManyRequests"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
   /api/auth/forgot-password/resend-otp:
     post:
       summary: Resend OTP code (This route is allowed for all roles) 📱
@@ -7720,6 +8282,14 @@ paths:
             type: string
             default: application/json
           example: application/json
+        - in: header
+          name: Accept-Language
+          required: false
+          schema:
+            type: string
+            enum:
+              - ar
+              - en
       requestBody:
         required: true
         content:
@@ -7762,6 +8332,12 @@ paths:
           $ref: "#/components/responses/422ResendOtpValidationError"
         "429":
           $ref: "#/components/responses/429TooManyRequests"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
   /api/ai/career-coach:
     post:
       summary: AI Career Coach Guidance (For All Roles) 📱
@@ -7780,6 +8356,14 @@ paths:
             type: string
             default: application/json
           example: application/json
+        - in: header
+          name: Accept-Language
+          required: false
+          schema:
+            type: string
+            enum:
+              - ar
+              - en
         - in: query
           name: lang
           required: false
@@ -7898,6 +8482,14 @@ paths:
             type: string
             default: application/json
           example: application/json
+        - in: header
+          name: Accept-Language
+          required: false
+          schema:
+            type: string
+            enum:
+              - ar
+              - en
         - in: query
           name: lang
           required: false
@@ -7991,6 +8583,14 @@ paths:
             type: string
             default: application/json
           example: application/json
+        - in: header
+          name: Accept-Language
+          required: false
+          schema:
+            type: string
+            enum:
+              - ar
+              - en
         - in: query
           name: lang
           required: false
@@ -8104,6 +8704,14 @@ paths:
             type: string
             default: application/json
           example: application/json
+        - in: header
+          name: Accept-Language
+          required: false
+          schema:
+            type: string
+            enum:
+              - ar
+              - en
         - in: query
           name: lang
           required: false
@@ -8210,6 +8818,14 @@ paths:
             type: string
             default: application/json
           example: application/json
+        - in: header
+          name: Accept-Language
+          required: false
+          schema:
+            type: string
+            enum:
+              - ar
+              - en
         - in: query
           name: lang
           required: false
@@ -8319,6 +8935,14 @@ paths:
             type: string
             default: application/json
           example: application/json
+        - in: header
+          name: Accept-Language
+          required: false
+          schema:
+            type: string
+            enum:
+              - ar
+              - en
         - in: query
           name: lang
           required: false
@@ -8419,6 +9043,14 @@ paths:
             type: string
             default: application/json
           example: application/json
+        - in: header
+          name: Accept-Language
+          required: false
+          schema:
+            type: string
+            enum:
+              - ar
+              - en
         - in: query
           name: lang
           required: false
@@ -8517,6 +9149,14 @@ paths:
             type: string
             default: application/json
           example: application/json
+        - in: header
+          name: Accept-Language
+          required: false
+          schema:
+            type: string
+            enum:
+              - ar
+              - en
         - in: query
           name: lang
           required: false
@@ -8571,6 +9211,12 @@ paths:
                 success: false
                 message: "You do not have the required permissions to perform this action."
                 errors: null
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
 components:
   securitySchemes:
     bearerAuth:
@@ -8805,6 +9451,7 @@ components:
             errors:
               department_id:
                 - The department field is required.
+
   schemas:
     EvaluationPeriod:
       type: object
@@ -9411,7 +10058,7 @@ components:
         id:
           type: integer
           example: 1
-        
+
         title:
           type: string
           example: Implement Redis Caching
@@ -9435,7 +10082,7 @@ components:
         status:
           type: string
           example: active
-        
+
         created_at:
           type: string
           format: date-time
